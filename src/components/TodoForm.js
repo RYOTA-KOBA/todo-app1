@@ -37,7 +37,7 @@ function TodoForm(props) {
                     onChange={handleChange}
                     ref={inputRef}
                 />
-                <button className="todo-button edit">Update</button>
+                <button className="todo-button edit">更新する</button>
                 </>
                 ) : (
                 <>
@@ -50,7 +50,7 @@ function TodoForm(props) {
                     onChange={handleChange}
                     ref={inputRef}
                 />
-                <button className="todo-button">Add to do</button>
+                <button className="todo-button">タスクを追加</button>
                 </>
                 )
                 }
