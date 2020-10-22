@@ -20,7 +20,6 @@ function TodoForm(props) {
             id: Math.floor(Math.random()*10000), 
             text: input
         });
-        　
         setInput('')
     };
 
@@ -30,7 +29,7 @@ function TodoForm(props) {
                 <>
                 <input 
                     type="text" 
-                    placeholder="Update your item" 
+                    placeholder="タスクの編集" 
                     value={input} 
                     name="text" 
                     className="todo-input edit"
@@ -43,7 +42,7 @@ function TodoForm(props) {
                 <>
                     <input 
                     type="text" 
-                    placeholder="Add to do" 
+                    placeholder="新規タスクを追加する" 
                     value={input} 
                     name="text" 
                     className="todo-input"
