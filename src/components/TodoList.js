@@ -1,6 +1,19 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import TodoForm from './TodoForm'
 import Todo from './Todo';
+import CitieList from './Todo'
+
+
+// firebase.firestore().collection("prefectures").add({
+//   name: "Ibaraki",
+//   country: "Japan"
+// })
+// .then(function(docRef) {
+//   console.log("Document written with ID: ", docRef.id);
+// })
+// .catch(function(error) {
+//   console.error("Error adding document: ", error);
+// });
 
 function TodoList() {
     const [todos, setTodos] = useState([]);
@@ -43,12 +56,21 @@ function TodoList() {
         <div>
             <h1>今日のタスク<span>✍️</span></h1>
             <TodoForm onSubmit={addTodo} />
-            <Todo 
+            {/* <Todo 
                 todos={todos}
                 completeTodo={completeTodo}
                 removeTodo={removeTodo}
                 updateTodo={updateTodo}
+            /> */}
+            <CitieList 
+                
             />
+            {/* {cities.map((city) => 
+            <li key={city.id}>
+                <h2>{city.name}</h2>
+                <h2>{city.country}</h2>
+            </li>
+            )} */}
         </div>
     )
 }
