@@ -1,13 +1,17 @@
 import React, {useState, useEffect, useRef} from 'react'
 
+import firebase from '../firebase/firebase'
+
 function TodoForm(props) {
     const [input, setInput] = useState(props.edit ? props.edit.value : '');
 
-    const inputRef = useRef(null);
+    const [todo, setTodo] = useState('')
 
-    useEffect(() => {
-        inputRef.current.focus()
-    })
+    // const inputRef = useRef(null);
+
+    // useEffect(() => {
+    //     inputRef.current.focus()
+    // })
 
     const handleChange = e => {
         setInput(e.target.value);
@@ -16,11 +20,22 @@ function TodoForm(props) {
     const handleSubmit = e => {
         e.preventDefault();
 
-        props.onSubmit({
-            id: Math.floor(Math.random()*10000), 
-            text: input
-        });
-        setInput('')
+        // props.onSubmit({
+        //     id: Math.floor(Math.random()*10000), 
+        //     text: input
+        // });
+        // setInput('')
+
+        firebase
+            .firestore()
+            .collection('todos')
+            .add({
+                todo,
+                timestamp:firebase.firestore.FieldValue.serverTimestamp()
+            })
+            .then(() => {
+                setTodo('')
+            })
     };
 
     return (
@@ -30,11 +45,11 @@ function TodoForm(props) {
                 <input 
                     type="text" 
                     placeholder="タスクの編集" 
-                    value={input} 
+                    value={todo} 
                     name="text" 
                     className="todo-input edit"
-                    onChange={handleChange}
-                    ref={inputRef}
+                    onChange={e => setTodo(e.currentTarget.value)}
+                    // ref={inputRef}
                 />
                 <button className="todo-button edit">更新する</button>
                 </>
@@ -43,18 +58,38 @@ function TodoForm(props) {
                     <input 
                     type="text" 
                     placeholder="新規タスクを追加する" 
-                    value={input} 
+                    value={todo} 
                     name="text" 
                     className="todo-input"
-                    onChange={handleChange}
-                    ref={inputRef}
+                    onChange={e => setTodo(e.currentTarget.value)}
+                    // ref={inputRef}
                 />
                 <button className="todo-button">タスクを追加</button>
                 </>
                 )
                 }
+                {/* <>
+                <input 
+                    type="text" 
+                    value={name} 
+                    placeholder="City"
+                    // name="text" 
+                    className="todo-input"
+                    onChange={e => setName(e.currentTarget.value)}
+                    // ref={inputRef}
+                />
 
-
+                <input 
+                    type="text" 
+                    value={country} 
+                    placeholder="Country"
+                    // name="text" 
+                    className="todo-input"
+                    onChange={e => setCountry(e.currentTarget.value)}
+                    // ref={inputRef}
+                />
+                <button className="todo-button">投稿</button>
+                </> */}
         </form>
     )
 }
